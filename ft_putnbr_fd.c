@@ -1,23 +1,22 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmesa-ke <vmesa-ke@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: vmesa-ke <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 21:17:02 by vmesa-ke          #+#    #+#             */
-/*   Updated: 2024/10/07 21:25:53 by vmesa-ke         ###   ########.fr       */
+/*   Created: 2024/10/07 22:03:30 by vmesa-ke          #+#    #+#             */
+/*   Updated: 2024/10/07 22:03:42 by vmesa-ke         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
-
+/* ************************************************************************** */
 #include "libft.h"
 
-void    ft_putnbr_fd (int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-    char *num;
-    int size;
+	char	*num;
+	int		size;
 
-    num = ft_itoa(n);
-    size = ft_strlen(num);
-    write (fd, num, size);
+	num = ft_itoa (n);
+	size = ft_strlen (num);
+	write (fd, num, size);
 }

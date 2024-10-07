@@ -6,7 +6,7 @@
 /*   By: vmesa-ke <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:59:05 by vmesa-ke          #+#    #+#             */
-/*   Updated: 2024/09/23 20:52:27 by vmesa-ke         ###   ########.fr       */
+/*   Updated: 2024/10/07 22:32:14 by vmesa-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -21,8 +21,8 @@ int	ft_isspace(const char c)
 
 int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	neg;
+	long long	i;
+	int			neg;
 
 	i = 0;
 	neg = 1;

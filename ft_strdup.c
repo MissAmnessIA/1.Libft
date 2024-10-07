@@ -1,31 +1,32 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmesa-ke <vmesa-ke@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: vmesa-ke <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 22:56:18 by vmesa-ke          #+#    #+#             */
-/*   Updated: 2024/10/07 21:26:07 by vmesa-ke         ###   ########.fr       */
+/*   Created: 2024/10/07 21:57:57 by vmesa-ke          #+#    #+#             */
+/*   Updated: 2024/10/07 23:08:09 by vmesa-ke         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
-
-
+/* ************************************************************************** */
+#include "libft.h"
 
 char	*ft_strdup(const char *s)
 {
-	int		num;
 	char	*dup;
+	char	*d_s;
+	size_t	i;
 
-	num = ft_strlen(s);
-	dup = (char *) malloc(num * sizeof(char));
-	if (dup == NULL)
+	i = 0;
+	d_s = (char *)s;
+	dup = (char *) malloc(ft_strlen(d_s) + 1);
+	if (!dup)
 		return (NULL);
-	while (*s != '\0')
+	while (d_s[i] != '\0')
 	{
-		*dup = *s;
-		dup++;
-		s++;
+		dup[i] = d_s[i];
+		i++;
 	}
-	return (dup - num);
+	dup[i] = '\0';
+	return (dup);
 }
