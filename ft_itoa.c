@@ -63,16 +63,14 @@ char	*ft_itoa(int n)
 	neg = 0;
 	if (n == 2147483647){
 		n_str = (char *)malloc(11);
-		if(n_str == NULL)
-			return (NULL);
 		n_str = "2147483647";
 	}
 	else if (n == -2147483648){
 		n_str = (char *)malloc(12);
-		if (n_str == NULL)
-			return(NULL);
 		n_str = "-2147483648";
-	}			
+	}
+	if (n_str == NULL)
+			return(NULL);
 	else{		
 		if (n < 0)
 		{
@@ -87,14 +85,4 @@ char	*ft_itoa(int n)
 	}
 	
 	return (n_str);
-}
-int main(void)
-{
-	long n = 0;
-	char *c = ft_itoa(n);
-
-
-	printf ("Mi lib: %s \n", c);
-	printf("Size: %zu", ft_strlen(c));
-	return(0);
 }

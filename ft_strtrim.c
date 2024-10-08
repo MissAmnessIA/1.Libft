@@ -30,24 +30,25 @@ char	*ft_strtrim(const char *s1, const char *set)
 	const char	*fin;
 	char		*trim;
 	size_t		size_s1;
-	size_t		size_trim;
+	int			count;
 
+	count = 0;
 	size_s1 = ft_strlen (s1);
 	start = s1;
 	fin = (s1 + size_s1) - 1;
 	while (check_set(set, *start) && *start)
-		start ++;
+		start++;
 	while (check_set(set, *fin) && fin > start)
 		fin--;
-	size_trim = (fin - start) + 1;
-	trim = (char *)malloc ((size_trim + 1) * sizeof(char));
+	trim = (char *)malloc((fin - start) + 2);
+	if (!trim)
+		return (NULL);
 	while (start <= fin)
 	{
-		*trim = *start;
-		trim++;
+		trim[count] = *start;
+		count++;
 		start++;
 	}
-	*trim = '\0';
-	trim -= size_trim;
+	trim[count] = '\0';
 	return (trim);
 }
