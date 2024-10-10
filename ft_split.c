@@ -6,111 +6,69 @@
 /*   By: vmesa-ke <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 22:09:00 by vmesa-ke          #+#    #+#             */
-/*   Updated: 2024/10/07 22:09:05 by vmesa-ke         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:08:53 by vmesa-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t	elem_len(const char *str, char c)
+static int	count_substr(const char *s, char c)
 {
-	int	countchr;
+	int	count;
+	int	in_str;
 
-	countchr = 0;
-	while (*str != c && *str != '\0')
+	count = 0;
+	in_str = 0;
+	while (*s)
 	{
-		countchr++;
-		str++;
-	}
-	return (countchr);
-}
-
-size_t	numofargc(const char *str, char c)
-{
-	int	countarg;
-
-	while (*str)
-	{
-		if (*str == c)
+		if (*s != c && !in_str)
 		{
-			while (*str == c)
-				str++;
-			countarg++;
+			in_str = 1;
+			count++;
 		}
-		str++;
-	}
-	countarg++;
-	return (countarg);
-}
-
-char	*strcopy(const char *s, char c, char *parray, size_t size)
-{
-	int	i;
-
-	i = 0;
-	parray = (char *)malloc((size + 1) * sizeof(char));
-	if (parray == NULL)
-		return (NULL);
-	while (*s != c && *s != '\0')
-	{
-		parray[i] = *s;
-		i++;
+		else if (*s == c)
+			in_str = 0;
 		s++;
 	}
-	parray[i] = '\0';
-	return (parray);
+	return (count);
 }
 
-char	*strtrim(const char *s1, char c)
+size_t	size_substr(const char *s, char c, unsigned int index)
 {
-	const char	*start;
-	const char	*fin;
-	char		*trim;
-	size_t		size_s1;
-	size_t		size_trim;
+	size_t	count;
 
-	size_s1 = ft_strlen (s1);
-	start = s1;
-	fin = (s1 + size_s1) - 1;
-	while (*start == c && *start)
-		start ++;
-	while (*fin == c && fin > start)
-		fin--;
-	size_trim = (fin - start) + 1;
-	trim = (char *)malloc ((size_trim + 1) * sizeof(char));
-	while (start <= fin)
+	count = 0;
+	while (s[index] && s[index] != c)
 	{
-		*trim = *start;
-		trim++;
-		start++;
+		count++;
+		index++;
 	}
-	*trim = '\0';
-	trim -= size_trim;
-	return (trim);
+	return (count);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	lenarg;
-	char	**parray;
-	int		index_array;
+	char			**result;
+	unsigned int	index;
+	size_t			substr_size;
+	int				i;
 
-	index_array = 0;
-	s = strtrim(s, c);
-	parray = (char **)malloc((numofargc(s, c) + 1) * sizeof(char *));
-	if (parray == NULL)
+	result = (char **)malloc((count_substr(s, c) + 1) * sizeof(char *));
+	if (!result || !s)
 		return (NULL);
-	while (*s != '\0')
+	index = 0;
+	i = 0;
+	while (s[index])
 	{
-		if (*s != c)
+		while (s[index] == c && s[index])
+			index++;
+		if (s[index] != c && s[index])
 		{
-			lenarg = elem_len(s, c);
-			parray[index_array] = strcopy(s, c, parray[index_array], lenarg);
-			s += lenarg;
-			index_array++;
+			substr_size = size_substr (s, c, index);
+			result[i] = ft_substr (s, index, substr_size);
+			index += substr_size;
+			i++;
 		}
-		while (*s == c)
-			s++;
 	}
-	parray[index_array] = NULL;
-	return (parray);
+	result[i] = NULL;
+	return (result);
 }
